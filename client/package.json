@@ -14,8 +14,9 @@
     "sass": "^1.21.0"
   },
   "dependencies": {
-    "react": ">= 16.3.0",
+    "react": ">= 16.8",
     "react-dom": ">= 16.3.0",
+    "react-dropzone": "^10.1.5",
     "styled-components": "^4.3.1"
   }
 }

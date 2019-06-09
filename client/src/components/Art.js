@@ -7,20 +7,19 @@ import { useCoverArt } from '../context/cover-art';
 
 const Canvas = styled.canvas`
   width: 100%;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 `;
 
-export const Art = ({ name, image }) => {
+export const Art = () => {
   const canvasRef = useRef(null);
-  const [{ coverArt }, dispatch] = useCoverArt();
+  const [coverArt, setCoverArt] = useState();
+  const [{ name, image, backdrop }, dispatch] = useCoverArt();
+  const dimensions = 1000;
 
   useEffect(() => {
     if (canvasRef.current) {
-      dispatch({
-        type: 'SET_COVER_ART',
-        payload: new CoverArt(canvasRef.current)
-      })
+      setCoverArt(new CoverArt(canvasRef.current))
     }
   }, [canvasRef]);
 
@@ -32,12 +31,18 @@ export const Art = ({ name, image }) => {
 
   useEffect(() => {
     if (coverArt) {
+      coverArt.setGradient(backdrop);
+    }
+  }, [backdrop, coverArt]);
+
+  useEffect(() => {
+    if (coverArt) {
       coverArt.setArtistImage(image);
     }
-  }, [image, coverArt])
+  }, [image, coverArt]);
 
   return (
-    <Canvas ref={canvasRef} width={1000} height={1000}></Canvas>
+    <Canvas ref={canvasRef} width={dimensions} height={dimensions}></Canvas>
   )
 }
 

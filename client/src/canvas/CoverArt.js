@@ -4,13 +4,12 @@ export class CoverArt {
     this.context = canvas.getContext('2d');
     this.defaultName = 'Music';
     this.artistName = this.defaultName;
-    this.gradients = [
-      ['#E7DDE0', '#6C84B0'],
-      ['#5878A7', '#7DA2D2'],
-      ['#AED6CD', '#BCE8C8'],
-      ['#DC9655', '#F8B95A']
-    ];
-    this.currentGradient = 0;
+    this.gradient = ['#E7DDE0', '#6C84B0'];
+
+    const dpr = window.devicePixelRatio || 1;
+    this.canvas.width = this.canvas.width * dpr;
+    this.canvas.height = this.canvas.height * dpr;
+
     this.render();
   }
 
@@ -24,8 +23,8 @@ export class CoverArt {
     this.render();
   }
 
-  cycleGradients() {
-    this.currentGradient = (this.currentGradient + 1) % this.gradients.length;
+  setGradient(gradient) {
+    this.gradient = gradient;
     this.render();
   }
 
@@ -36,24 +35,24 @@ export class CoverArt {
     if (this.artistImage) {
       const ratio = this.canvas.width / this.artistImage.width;
       const height = this.artistImage.height * ratio;
-      this.context.drawImage(this.artistImage, 0, 300, this.canvas.width, height);
+      this.context.drawImage(this.artistImage, 0, this.canvas.height * 0.3, this.canvas.width, height);
     }
 
-    this.context.font = '600 40px "Avenir Next"';
+    this.context.font = `600 ${this.canvas.height * 0.04}px "Avenir Next"`;
     this.context.fillStyle = '#1A1414'
 
     this.context.textAlign = "center";
-    this.context.fillText("T H I S  I S", this.canvas.width / 2, 160);
+    this.context.fillText("T H I S  I S", this.canvas.width / 2, this.canvas.height * 0.16);
 
-    this.context.font = '700 80px "Avenir Next"';
-    this.context.fillText(this.artistName, this.canvas.width / 2, 260);
+    this.context.font = `700 ${this.canvas.height * 0.08}px "Avenir Next"`;
+    this.context.fillText(this.artistName, this.canvas.width / 2, this.canvas.height * 0.26);
 
-    const gradient = this.context.createLinearGradient(0, 0, 0, 1000);
-    gradient.addColorStop(0, this.gradients[this.currentGradient][0]);
-    gradient.addColorStop(1, this.gradients[this.currentGradient][1]);
+    const gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
+    gradient.addColorStop(0, this.gradient[0]);
+    gradient.addColorStop(1, this.gradient[1]);
 
     this.context.fillStyle = gradient;
-    this.context.fillRect(0, 400, this.canvas.width, 600);
+    this.context.fillRect(0, this.canvas.height * 0.4, this.canvas.width, this.canvas.height * 0.6);
 
     this.context.fillStyle = "white";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);

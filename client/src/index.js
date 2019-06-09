@@ -10,15 +10,6 @@ import { GlobalStyle } from './components/GlobalStyle';
 
 import { CoverArtProvider } from './context/cover-art';
 
-function reducer(state, action) {
-  switch(action.type) {
-    case 'SET_COVER_ART':
-      return { ...state, coverArt: action.payload }
-    default:
-      return state;
-  }
-}
-
 const App = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState();
@@ -27,7 +18,7 @@ const App = () => {
   useDocumentTitle(`This is${name ? `: ${name}` : ''}`);
 
   return (
-    <CoverArtProvider reducer={reducer}>
+    <CoverArtProvider>
       <GlobalStyle />
       <Page title={name}>
         <Art name={name} image={image} />
