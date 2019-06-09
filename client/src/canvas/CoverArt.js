@@ -48,7 +48,7 @@ export class CoverArt {
     this.context.fillText(this.artistName, this.canvas.width / 2, this.canvas.height * 0.26);
 
     const gradient = this.context.createLinearGradient(0, 0, 0, this.canvas.height);
-    gradient.addColorStop(0, this.gradient[0]);
+    gradient.addColorStop(0.3, this.gradient[0]);
     gradient.addColorStop(1, this.gradient[1]);
 
     this.context.fillStyle = gradient;
