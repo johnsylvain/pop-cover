@@ -1,4 +1,4 @@
-export class CoverArt {
+export class CoverArtRenderer {
   constructor(canvas) {
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
@@ -13,18 +13,12 @@ export class CoverArt {
     this.render();
   }
 
-  setArtistName(newName) {
-    this.artistName = newName === '' ? this.defaultName : newName;
-    this.render();
-  }
+  update(newParams) {
+    const { name, image, backdrop } = newParams;
+    this.artistName = name || this.artistName;
+    this.artistImage = image || this.artistImage;
+    this.gradient = backdrop || this.gradient;
 
-  setArtistImage(image) {
-    this.artistImage = image;
-    this.render();
-  }
-
-  setGradient(gradient) {
-    this.gradient = gradient;
     this.render();
   }
 

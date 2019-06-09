@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { CoverArt } from '../canvas/CoverArt';
+import { CoverArtRenderer } from '../canvas/CoverArtRenderer';
 
 import { useCoverArt } from '../context/cover-art';
 
@@ -13,33 +13,33 @@ const Canvas = styled.canvas`
 
 export const Art = () => {
   const canvasRef = useRef(null);
-  const [coverArt, setCoverArt] = useState();
+  const [renderer, setRenderer] = useState();
   const [{ name, image, backdrop }, dispatch] = useCoverArt();
   const dimensions = 1000;
 
   useEffect(() => {
     if (canvasRef.current) {
-      setCoverArt(new CoverArt(canvasRef.current));
+      setRenderer(new CoverArtRenderer(canvasRef.current));
     }
   }, [canvasRef]);
 
   useEffect(() => {
-    if (coverArt) {
-      coverArt.setArtistName(name);
+    if (renderer) {
+      renderer.update({ name });
     }
-  }, [name, coverArt]);
+  }, [name, renderer]);
 
   useEffect(() => {
-    if (coverArt) {
-      coverArt.setGradient(backdrop);
+    if (renderer) {
+      renderer.update({ backdrop });
     }
-  }, [backdrop, coverArt]);
+  }, [backdrop, renderer]);
 
   useEffect(() => {
-    if (coverArt) {
-      coverArt.setArtistImage(image);
+    if (renderer) {
+      renderer.update({ image });
     }
-  }, [image, coverArt]);
+  }, [image, renderer]);
 
   return (
     <Canvas ref={canvasRef} width={dimensions} height={dimensions}></Canvas>

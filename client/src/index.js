@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 
 import { useDocumentTitle } from './hooks/useDocumentTitle';
@@ -11,20 +11,14 @@ import { GlobalStyle } from './components/GlobalStyle';
 import { CoverArtProvider } from './context/cover-art';
 
 const App = () => {
-  const [name, setName] = useState('');
-  const [image, setImage] = useState();
-  const [gradient, setGradient] = useState(0);
-
   useDocumentTitle(`This is${name ? `: ${name}` : ''}`);
 
   return (
     <CoverArtProvider>
       <GlobalStyle />
-      <Page title={name}>
-        <Art name={name} image={image} />
-        <div>
-          <Controls setName={setName} setImage={setImage} />
-        </div>
+      <Page>
+        <Art />
+        <Controls />
       </Page>
     </CoverArtProvider>
   );
