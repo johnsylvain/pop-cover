@@ -24,7 +24,11 @@ const StyledControls = styled.div`
 const Gradient = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(180deg, ${props => props.gradient[0]} 0%, ${props => props.gradient[1]} 100%);
+  background: linear-gradient(
+    180deg,
+    ${props => props.gradient[0]} 0%,
+    ${props => props.gradient[1]} 100%
+  );
   border-radius: 3px;
   cursor: pointer;
   display: flex;
@@ -43,7 +47,7 @@ export const Controls = () => {
   const labelRef = useRef();
   const onDrop = useCallback(([file]) => {
     if (file.type === 'image/png') {
-      const url = window.URL.createObjectURL(file)
+      const url = window.URL.createObjectURL(file);
       const image = new Image();
       image.src = url;
       image.addEventListener('load', () => {
@@ -52,51 +56,61 @@ export const Controls = () => {
           payload: image
         });
       });
-    }  
+    }
   });
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const [{ backdrops, backdrop, image }, dispatch] = useCoverArt();
 
-  const setBackdrop = (gradient) => {
+  const setBackdrop = gradient => {
     dispatch({
       type: 'SET_BACKDROP',
       payload: gradient
     });
-  }
+  };
 
-  const setName = (name) => {
+  const setName = name => {
     dispatch({
       type: 'SET_NAME',
       payload: name
     });
-  }
+  };
 
   const downloadImage = (data, filename) => {
     const a = document.createElement('a');
     a.href = data;
     a.download = filename;
     a.click();
-  }
+  };
 
   return (
     <StyledControls>
       <div className="title">options</div>
 
       <div className="inputs">
-        <input type="text" className="input" placeholder="Artist name" onChange={event => setName(event.target.value.trim())} />
+        <input
+          type="text"
+          className="input"
+          placeholder="Artist name"
+          onChange={event => setName(event.target.value.trim())}
+        />
         <div {...getRootProps()}>
-          <input {...getInputProps()} className="input" id="artist-image" accept=".png"/>
+          <input
+            {...getInputProps()}
+            className="input"
+            id="artist-image"
+            accept=".png"
+          />
           <label htmlFor="artist-image" ref={labelRef}>
-            {isDragActive
-              ? <span>Drop!</span>
-              : image
-                ? <span>1 image added</span>
-                : <>
-                    <Upload />
-                    &nbsp;
-                    Upload an image 
-                  </>
-            }
+            {isDragActive ? (
+              <span>Drop!</span>
+            ) : image ? (
+              <span>1 image added</span>
+            ) : (
+              <>
+                <Upload />
+                &nbsp; Upload an image
+              </>
+            )}
           </label>
         </div>
 
@@ -106,20 +120,21 @@ export const Controls = () => {
               key={gradient}
               gradient={gradient}
               onClick={() => setBackdrop(gradient)}
-            >{gradient === backdrop && <Check />}</Gradient>
+            >
+              {gradient === backdrop && <Check />}
+            </Gradient>
           ))}
         </Gradients>
       </div>
     </StyledControls>
-  )
-}
+  );
+};
 
+// <button className="button" onClick={() => {
+//   downloadImage(
+//     coverArt.export(),
+//     `this-is-${coverArt.artistName.toLowerCase().replace(' ', '-')}.jpeg`
+//          );
+//       }}>Download JPEG</button>
 
-  // <button className="button" onClick={() => {
-  //   downloadImage(
-  //     coverArt.export(),
-  //     `this-is-${coverArt.artistName.toLowerCase().replace(' ', '-')}.jpeg`
-  //          );
-  //       }}>Download JPEG</button>
-
-  //       <button className="button button--primary">Create Playlist</button>
+//       <button className="button button--primary">Create Playlist</button>

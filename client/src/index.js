@@ -28,7 +28,6 @@ const App = () => {
       </Page>
     </CoverArtProvider>
   );
-}
+};
 
 render(<App />, document.querySelector('#app'));
-

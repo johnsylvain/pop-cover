@@ -19,7 +19,7 @@ export const Art = () => {
 
   useEffect(() => {
     if (canvasRef.current) {
-      setCoverArt(new CoverArt(canvasRef.current))
+      setCoverArt(new CoverArt(canvasRef.current));
     }
   }, [canvasRef]);
 
@@ -43,6 +43,5 @@ export const Art = () => {
 
   return (
     <Canvas ref={canvasRef} width={dimensions} height={dimensions}></Canvas>
-  )
-}
-
+  );
+};

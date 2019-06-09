@@ -26,7 +26,7 @@ const Container = styled.div`
 
 const Main = styled.main`
   flex-grow: 1;
-`
+`;
 
 export const Page = ({ children }) => {
   return (
@@ -40,4 +40,4 @@ export const Page = ({ children }) => {
       </Footer>
     </Container>
   );
-}
+};

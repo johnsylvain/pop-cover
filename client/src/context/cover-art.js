@@ -14,16 +14,16 @@ const initialState = {
   image: null,
   backdrop: backdrops[0],
   backdrops
-}
+};
 
 function reducer(state, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_BACKDROP':
-      return { ...state, backdrop: action.payload }
+      return { ...state, backdrop: action.payload };
     case 'SET_NAME':
-      return { ...state, name: action.payload }
+      return { ...state, name: action.payload };
     case 'SET_IMAGE':
-      return { ...state, image: action.payload }
+      return { ...state, image: action.payload };
     default:
       return state;
   }
@@ -31,11 +31,9 @@ function reducer(state, action) {
 
 export const CoverArtProvider = ({ children }) => {
   const value = useReducer(reducer, initialState);
-  return (
-    <Context.Provider value={value}>{children}</Context.Provider> 
-  )
-}
+  return <Context.Provider value={value}>{children}</Context.Provider>;
+};
 
 export const useCoverArt = () => {
   return useContext(Context);
-}
+};
