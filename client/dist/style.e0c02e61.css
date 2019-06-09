@@ -1,0 +1,189 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Avenir Next", "Avenir", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: #2c5e92;
+  background: linear-gradient(90deg, #2c5e92 0%, #552f6d 100%);
+  color: #ffffff;
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+canvas {
+  width: 100%;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px 10px;
+}
+.container > * {
+  animation: fade-up 1s forwards;
+  opacity: 0;
+}
+.container > *:nth-child(4) {
+  animation-delay: 400ms;
+}
+.container > *:nth-child(3) {
+  animation-delay: 300ms;
+}
+.container > *:nth-child(2) {
+  animation-delay: 200ms;
+}
+.container > *:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  padding: 20px 0;
+}
+header h1 {
+  font-size: 2rem;
+  flex-grow: 1;
+  font-weight: 700;
+}
+header nav ul {
+  display: flex;
+}
+header nav ul li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.inputs {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0px;
+}
+
+.input, .input + label {
+  padding: 12px 20px;
+  font-size: 1.5rem;
+  color: white;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 700;
+  border-radius: 3px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.input:hover, .input + label:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.input[type=text] {
+  display: block;
+  outline: 0;
+  border: 0;
+  grid-column: 1/span 2;
+}
+.input[type=text]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.input[type=file] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.input[type=file] + label {
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button {
+  padding: 14px 56px;
+  font-weight: 700;
+  font-family: inherit;
+  border-radius: 500px;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+  color: white;
+  white-space: nowrap;
+  background: transparent;
+  border: 2px solid white;
+}
+.button.button--primary {
+  background: #1DB954;
+  border: 2px solid #1DB954;
+}
+.button.button--primary:hover {
+  background: #1ED760;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/*# sourceMappingURL=/style.e0c02e61.css.map */
