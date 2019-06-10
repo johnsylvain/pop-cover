@@ -39,7 +39,8 @@ export class CoverArtRenderer {
       );
     }
 
-    this.context.font = `600 ${this.canvas.height * 0.04}px "Avenir Next"`;
+    this.context.font = `600 ${this.canvas.height *
+      0.04}px "Avenir Next", "Avenir", "Roboto", "Ubuntu", "Helvetica Neue"`;
     this.context.fillStyle = '#1A1414';
 
     this.context.textAlign = 'center';
