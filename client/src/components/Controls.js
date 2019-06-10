@@ -1,23 +1,37 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
 
 import { useCoverArt } from '../context/cover-art';
 
 import { Upload, Check } from './Icon';
+import { Input } from './Input';
+import { Button } from './Button';
 
 const StyledControls = styled.div`
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.05);
   background: white;
+  overflow: hidden;
 
-  > .title {
-    background: rgba(135, 135, 135, 0.5);
+  > .controls-title {
+    background: rgba(135, 135, 135, 0.8);
     color: white;
     padding: 10px 20px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.8rem;
+  }
+
+  > .controls-body {
+    padding: 20px;
+  }
+
+  > .controls-footer {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
   }
 `;
 
@@ -42,11 +56,25 @@ const Gradients = styled.div`
   flex-wrap: wrap;
 `;
 
+const Img = styled.img`
+  width: 100px;
+  margin-bottom: 10px;
+`;
+
+const Preview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 export const Controls = () => {
   const imageInputRef = useRef();
   const labelRef = useRef();
+  const [file, setFile] = useState();
   const onDrop = useCallback(([file]) => {
     if (file.type === 'image/png') {
+      setFile(file);
       const url = window.URL.createObjectURL(file);
       const image = new Image();
       image.src = url;
@@ -59,7 +87,10 @@ export const Controls = () => {
     }
   });
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-  const [{ backdrops, backdrop, image }, dispatch] = useCoverArt();
+  const [
+    { backdrops, backdrop, image, name, renderer },
+    dispatch
+  ] = useCoverArt();
 
   const setBackdrop = gradient => {
     dispatch({
@@ -84,31 +115,34 @@ export const Controls = () => {
 
   return (
     <StyledControls>
-      <div className="title">options</div>
+      <div className="controls-title">options</div>
 
-      <div className="inputs">
-        <input
+      <div className="controls-body">
+        <Input
           type="text"
-          className="input"
-          placeholder="Artist name"
-          onChange={event => setName(event.target.value.trim())}
+          placeholder="Playlist name"
+          onChange={event => setName(event.target.value)}
+          value={name}
+          autoFocus="on"
         />
         <div {...getRootProps()}>
-          <input
+          <Input
             {...getInputProps()}
-            className="input"
+            type="file"
             id="artist-image"
             accept=".png"
+            active={isDragActive}
           />
           <label htmlFor="artist-image" ref={labelRef}>
-            {isDragActive ? (
-              <span>Drop!</span>
-            ) : image ? (
-              <span>1 image added</span>
+            {image ? (
+              <Preview>
+                <Img src={image.src} alt="" />
+                <span>{file ? file.name : '1 image'} added.</span>
+              </Preview>
             ) : (
               <>
                 <Upload />
-                &nbsp; Upload an image
+                &nbsp; Drag and drop a PNG
               </>
             )}
           </label>
@@ -126,15 +160,22 @@ export const Controls = () => {
           ))}
         </Gradients>
       </div>
+
+      <div className="controls-footer">
+        <Button
+          onClick={() => {
+            downloadImage(
+              renderer.export(),
+              `this-is-${(renderer.artistName || renderer.defaultName)
+                .toLowerCase()
+                .replace(' ', '-')}.jpeg`
+            );
+          }}
+        >
+          Download JPEG
+        </Button>
+        <Button primary>Create Playlist</Button>
+      </div>
     </StyledControls>
   );
 };
-
-// <button className="button" onClick={() => {
-//   downloadImage(
-//     coverArt.export(),
-//     `this-is-${coverArt.artistName.toLowerCase().replace(' ', '-')}.jpeg`
-//          );
-//       }}>Download JPEG</button>
-
-//       <button className="button button--primary">Create Playlist</button>

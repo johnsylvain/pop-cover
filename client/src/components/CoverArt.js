@@ -11,7 +11,7 @@ const Canvas = styled.canvas`
   border-radius: 3px;
 `;
 
-export const Art = () => {
+export const CoverArt = () => {
   const canvasRef = useRef(null);
   const [renderer, setRenderer] = useState();
   const [{ name, image, backdrop }, dispatch] = useCoverArt();
@@ -19,7 +19,12 @@ export const Art = () => {
 
   useEffect(() => {
     if (canvasRef.current) {
-      setRenderer(new CoverArtRenderer(canvasRef.current));
+      const renderer = new CoverArtRenderer(canvasRef.current);
+      dispatch({
+        type: 'SET_RENDERER',
+        payload: renderer
+      });
+      setRenderer(renderer);
     }
   }, [canvasRef]);
 

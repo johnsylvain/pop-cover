@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 import { Footer } from './Footer';
 
@@ -26,6 +27,13 @@ const Container = styled.div`
 
 const Main = styled.main`
   flex-grow: 1;
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  grid-gap: 15px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Page = ({ children }) => {
@@ -33,6 +41,10 @@ export const Page = ({ children }) => {
     <Container>
       <Header>
         <h1>This playlist</h1>
+        <nav>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/about">About</NavLink>
+        </nav>
       </Header>
       <Main>{children}</Main>
       <Footer>

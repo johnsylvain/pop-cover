@@ -6,7 +6,8 @@ const backdrops = [
   ['#E7DDE0', '#6C84B0'],
   ['#5878A7', '#7DA2D2'],
   ['#AED6CD', '#BCE8C8'],
-  ['#DC9655', '#F8B95A']
+  ['#DC9655', '#F8B95A'],
+  ['#943347', '#D82D3F']
 ];
 
 const initialState = {
@@ -18,6 +19,8 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'SET_RENDERER':
+      return { ...state, renderer: action.payload };
     case 'SET_BACKDROP':
       return { ...state, backdrop: action.payload };
     case 'SET_NAME':

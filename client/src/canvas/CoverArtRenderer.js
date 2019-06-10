@@ -15,7 +15,8 @@ export class CoverArtRenderer {
 
   update(newParams) {
     const { name, image, backdrop } = newParams;
-    this.artistName = name || this.artistName;
+    this.artistName =
+      typeof name === 'undefined' ? this.artistName : name.trim();
     this.artistImage = image || this.artistImage;
     this.gradient = backdrop || this.gradient;
 
@@ -50,15 +51,15 @@ export class CoverArtRenderer {
 
     this.context.font = `700 ${this.canvas.height * 0.08}px "Avenir Next"`;
     this.context.fillText(
-      this.artistName,
+      this.artistName || this.defaultName,
       this.canvas.width / 2,
       this.canvas.height * 0.26
     );
 
     const gradient = this.context.createLinearGradient(
+      this.canvas.width * 0.25,
       0,
-      0,
-      0,
+      this.canvas.width * 0.6,
       this.canvas.height
     );
     gradient.addColorStop(0.3, this.gradient[0]);

@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import { useDocumentTitle } from './hooks/useDocumentTitle';
 
-import { Page } from './components/Page';
-import { Art } from './components/Art';
-import { Controls } from './components/Controls';
 import { GlobalStyle } from './components/GlobalStyle';
+
+import { Home } from './pages/Home';
+import { About } from './pages/About';
 
 import { CoverArtProvider } from './context/cover-art';
 
@@ -16,10 +17,10 @@ const App = () => {
   return (
     <CoverArtProvider>
       <GlobalStyle />
-      <Page>
-        <Art />
-        <Controls />
-      </Page>
+      <BrowserRouter>
+        <Route path="/" exact component={Home}></Route>
+        <Route path="/about" exact component={About}></Route>
+      </BrowserRouter>
     </CoverArtProvider>
   );
 };
