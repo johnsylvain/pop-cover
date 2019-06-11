@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html",
-    "prettier": "pretty-quick",
-    "functions:local": "netlify-lambda serve functions"
+    "start:functions": "netlify-lambda serve functions",
+    "build": "parcel build src/index.html && yarn build:functions",
+    "build:functions": "netlify-lambda build functions",
+    "prettier": "pretty-quick"
   },
   "keywords": [],
   "author": "",
