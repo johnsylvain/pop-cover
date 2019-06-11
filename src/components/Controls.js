@@ -10,8 +10,8 @@ import { GradientPicker } from './GradientPicker';
 
 const StyledControls = styled.div`
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.05);
   background: white;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 
   > .controls-title {
