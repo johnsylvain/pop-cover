@@ -5,6 +5,6 @@ exports.handler = function(event, context, callback) {
       Location: 'https://accounts.spotify.com/authorize',
       'Cache-Control': 'no-cache'
     },
-    body: ''
+    body: 'nice'
   });
 };
