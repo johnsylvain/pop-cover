@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import { useDocumentTitle } from './hooks/useDocumentTitle';
 
-import { GlobalStyle } from './components/GlobalStyle';
+import { GlobalStyle } from './styles/GlobalStyle';
 
 import { Home } from './pages/Home';
 import { About } from './pages/About';
