@@ -53,11 +53,8 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    // background: url(${bg}) no-repeat;
-    // background-position: 0% 350px;
-    // background-size: contain;
     color: #1A1414;
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: 400;
   }
 `;

@@ -1,8 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import styled from 'styled-components';
 
-import { Upload } from './Icon';
 import { Input } from './Input';
+
+const FileDropBase = styled.div`
+  flex: 1;
+  margin-bottom: 20px;
+`;
 
 export const FileDrop = ({ onChange }) => {
   const [file, setFile] = useState();
@@ -13,7 +18,7 @@ export const FileDrop = ({ onChange }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div {...getRootProps()}>
+    <FileDropBase {...getRootProps()}>
       <Input
         {...getInputProps()}
         type="file"
@@ -23,11 +28,11 @@ export const FileDrop = ({ onChange }) => {
       />
       <label htmlFor="artist-image">
         {file ? (
-          <span>{file ? file.name : '1 image'} added.</span>
+          <span>{file ? file.name : '1 image'} added</span>
         ) : (
           <span>Drag and drop a PNG</span>
         )}
       </label>
-    </div>
+    </FileDropBase>
   );
 };

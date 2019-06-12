@@ -31,7 +31,7 @@ const Footer = styled.footer`
 const Main = styled.main`
   display: grid;
   grid-template-columns: 40% 1fr;
-  grid-gap: 15px;
+  grid-gap: 20px;
   position: relative;
   z-index: 100;
 
@@ -43,8 +43,10 @@ const Main = styled.main`
 const Wave = styled.div`
   background: url(${bg}) no-repeat;
   height: 380px;
+  width: 100%;
   margin-top: -380px;
   background-size: cover;
+  background-position: center;
   z-index: -100;
 `;
 

@@ -9,26 +9,22 @@ import { FileDrop } from './FileDrop';
 import { GradientPicker } from './GradientPicker';
 
 const StyledControls = styled.div`
-  border-radius: 3px;
+  border-radius: 5px;
   background: white;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  > .controls-body {
-    padding: 20px;
-    flex: 1;
-  }
+  padding: 20px;
 
   > .controls-footer {
-    padding: 20px;
-    padding-top: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-top: 20px;
 
-    & > * {
-      width: 50%;
+    & > *:not(:last-child) {
+      margin-right: 10px;
     }
   }
 `;
@@ -52,32 +48,30 @@ export const Controls = () => {
 
   return (
     <StyledControls>
-      <div className="controls-body">
-        <Input
-          type="text"
-          placeholder="Playlist name"
-          onChange={event => setName(event.target.value)}
-          value={name}
-        />
+      <Input
+        type="text"
+        placeholder="Playlist name"
+        onChange={event => setName(event.target.value)}
+        value={name}
+      />
 
-        <FileDrop
-          onChange={file => {
-            if (file.type === 'image/png') {
-              const url = window.URL.createObjectURL(file);
-              const image = new Image();
-              image.src = url;
-              image.addEventListener('load', () => {
-                dispatch({
-                  type: 'SET_IMAGE',
-                  payload: image
-                });
+      <FileDrop
+        onChange={file => {
+          if (file.type === 'image/png') {
+            const url = window.URL.createObjectURL(file);
+            const image = new Image();
+            image.src = url;
+            image.addEventListener('load', () => {
+              dispatch({
+                type: 'SET_IMAGE',
+                payload: image
               });
-            }
-          }}
-        />
+            });
+          }
+        }}
+      />
 
-        <GradientPicker></GradientPicker>
-      </div>
+      <GradientPicker />
 
       <div className="controls-footer">
         <Button
