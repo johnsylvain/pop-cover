@@ -25,10 +25,7 @@ export const FileDrop = ({ onChange }) => {
         {file ? (
           <span>{file ? file.name : '1 image'} added.</span>
         ) : (
-          <React.Fragment>
-            <Upload />
-            &nbsp; Drag and drop a PNG
-          </React.Fragment>
+          <span>Drag and drop a PNG</span>
         )}
       </label>
     </div>

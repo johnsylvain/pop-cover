@@ -4,7 +4,7 @@ export const Input = styled.input`
   &,
   & + label {
     padding: 12px 20px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #555555;
     font-family: inherit;
     background: rgba(0, 0, 0, 0.05);
@@ -18,6 +18,10 @@ export const Input = styled.input`
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+
+    @media (max-width: 1000px) {
+      font-size: 0.8rem;
+    }
   }
 
   &:hover {
@@ -48,6 +52,10 @@ export const Input = styled.input`
       border: 2px dashed
         ${props => (props.active ? 'royalblue' : 'rgba(135, 135, 135, 0.5)')};
       min-height: 200px;
+
+      @media (max-width: 1000px) {
+        min-height: 100px;
+      }
     }
   }
 `;

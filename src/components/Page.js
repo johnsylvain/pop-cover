@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
-import { Footer } from './Footer';
+import bg from '../styles/resources/bg-swoop.svg';
+
+import { Container } from './Container';
 
 const Header = styled.header`
   display: flex;
@@ -16,40 +17,58 @@ const Header = styled.header`
   }
 `;
 
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px;
+const Footer = styled.footer`
+  font-size: 0.8rem;
+  padding: 30px 0px;
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  align-items: flex-end;
+  justify-content: start;
+  background: #f2f2fb;
+  color: #c5c5ec;
 `;
 
 const Main = styled.main`
-  flex-grow: 1;
   display: grid;
   grid-template-columns: 40% 1fr;
   grid-gap: 15px;
+  position: relative;
+  z-index: 100;
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 `;
 
+const Wave = styled.div`
+  background: url(${bg}) no-repeat;
+  height: 380px;
+  margin-top: -380px;
+  background-size: cover;
+  z-index: -100;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
 export const Page = ({ children }) => {
   return (
-    <Container>
-      <Header>
-        <h1>This playlist</h1>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
-        </nav>
-      </Header>
-      <Main>{children}</Main>
+    <Wrapper>
+      <Container>
+        <Header>
+          <h1>This playlist</h1>
+        </Header>
+        <Main>{children}</Main>
+      </Container>
+      <Wave></Wave>
       <Footer>
-        <p>Created by John Sylvain</p>
+        <Container>
+          <p>&copy; John Sylvain {new Date().getFullYear()}</p>
+        </Container>
       </Footer>
-    </Container>
+    </Wrapper>
   );
 };

@@ -13,25 +13,23 @@ const StyledControls = styled.div`
   background: white;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-
-  > .controls-title {
-    background: rgba(135, 135, 135, 0.8);
-    color: white;
-    padding: 10px 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-  }
+  display: flex;
+  flex-direction: column;
 
   > .controls-body {
     padding: 20px;
+    flex: 1;
   }
 
   > .controls-footer {
     padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    padding-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      width: 50%;
+    }
   }
 `;
 
@@ -54,15 +52,12 @@ export const Controls = () => {
 
   return (
     <StyledControls>
-      <div className="controls-title">options</div>
-
       <div className="controls-body">
         <Input
           type="text"
           placeholder="Playlist name"
           onChange={event => setName(event.target.value)}
           value={name}
-          autoFocus="on"
         />
 
         <FileDrop

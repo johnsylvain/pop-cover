@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Button = styled.button`
-  padding: 14px 56px;
+  padding: 14px 20px;
   font-weight: 700;
   font-family: inherit;
   border-radius: 4px;
@@ -15,6 +15,10 @@ export const Button = styled.button`
 
   &:hover {
     background: rgba(131, 131, 131, 0.1);
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 0.8rem;
   }
 
   ${props =>
