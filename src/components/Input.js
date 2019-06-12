@@ -4,13 +4,12 @@ export const Input = styled.input`
   &,
   & + label {
     padding: 12px 20px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #555555;
     font-family: inherit;
-    background: rgba(0, 0, 0, 0.05);
-    font-weight: 700;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    font-weight: 500;
     border-radius: 3px;
-    border: 0;
     outline: 0;
     cursor: pointer;
     width: 100%;
@@ -18,16 +17,15 @@ export const Input = styled.input`
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-  }
 
-  &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    @media (max-width: 1000px) {
+      font-size: 0.9rem;
+    }
   }
 
   &[type='text'] {
     display: block;
     outline: 0;
-    border: 0;
     grid-column: 1 / span 2;
 
     &::placeholder {
@@ -46,8 +44,9 @@ export const Input = styled.input`
     & + label {
       cursor: pointer;
       border: 2px dashed
-        ${props => (props.active ? 'royalblue' : 'rgba(135, 135, 135, 0.5)')};
-      min-height: 200px;
+        ${props => (props.active ? '#3498db' : 'rgba(0, 0, 0, 0.05)')};
+      height: 100%;
+      min-height: 100px;
     }
   }
 `;

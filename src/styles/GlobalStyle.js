@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import bg from './resources/bg-swoop.svg';
 
 export const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -52,10 +53,8 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    background: rgb(44,94,146);
-    background: linear-gradient(90deg, rgba(44,94,146,1) 0%, rgba(85,47,109,1) 100%);
-    color: #ffffff;
-    font-size: 14pt;
+    color: #1A1414;
+    font-size: 12pt;
     font-weight: 400;
   }
 `;

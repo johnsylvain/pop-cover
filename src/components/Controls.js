@@ -9,29 +9,23 @@ import { FileDrop } from './FileDrop';
 import { GradientPicker } from './GradientPicker';
 
 const StyledControls = styled.div`
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
   background: white;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-
-  > .controls-title {
-    background: rgba(135, 135, 135, 0.8);
-    color: white;
-    padding: 10px 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-  }
-
-  > .controls-body {
-    padding: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 
   > .controls-footer {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-top: 20px;
+
+    & > *:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 `;
 
@@ -54,35 +48,30 @@ export const Controls = () => {
 
   return (
     <StyledControls>
-      <div className="controls-title">options</div>
+      <Input
+        type="text"
+        placeholder="Playlist name"
+        onChange={event => setName(event.target.value)}
+        value={name}
+      />
 
-      <div className="controls-body">
-        <Input
-          type="text"
-          placeholder="Playlist name"
-          onChange={event => setName(event.target.value)}
-          value={name}
-          autoFocus="on"
-        />
-
-        <FileDrop
-          onChange={file => {
-            if (file.type === 'image/png') {
-              const url = window.URL.createObjectURL(file);
-              const image = new Image();
-              image.src = url;
-              image.addEventListener('load', () => {
-                dispatch({
-                  type: 'SET_IMAGE',
-                  payload: image
-                });
+      <FileDrop
+        onChange={file => {
+          if (file.type === 'image/png') {
+            const url = window.URL.createObjectURL(file);
+            const image = new Image();
+            image.src = url;
+            image.addEventListener('load', () => {
+              dispatch({
+                type: 'SET_IMAGE',
+                payload: image
               });
-            }
-          }}
-        />
+            });
+          }
+        }}
+      />
 
-        <GradientPicker></GradientPicker>
-      </div>
+      <GradientPicker />
 
       <div className="controls-footer">
         <Button
