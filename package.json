@@ -14,12 +14,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "dotenv": "^8.0.0",
     "husky": "^2.4.0",
     "netlify-lambda": "^1.4.13",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.0",
-    "sass": "^1.21.0"
+    "sass": "^1.21.0",
+    "simple-oauth2": "^2.2.1"
   },
   "dependencies": {
     "react": "^16.8.6",
