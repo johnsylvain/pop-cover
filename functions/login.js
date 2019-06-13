@@ -1,9 +1,10 @@
 import oauth2, { config } from './util/auth';
 
-exports.handler = function(event, context, callback) {
+exports.handler = (event, context, callback) => {
   const authorizationURI = oauth2.authorizationCode.authorizeURL({
-    redirect_uri: config.redirect_uri,
-    scope: 'playlist-modify-public user-read-email'
+    redirect_uri: config.redirectUri,
+    scope: 'playlist-modify-public user-read-email',
+    state: ''
   });
 
   callback(null, {

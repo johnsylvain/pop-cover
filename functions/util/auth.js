@@ -1,19 +1,19 @@
 const simpleOauth = require('simple-oauth2');
 
-const spotifyApi = 'https://accounts.spotify.com/authorize';
+const spotifyAuthBase = 'https://accounts.spotify.com';
+const spotifyAuthCode = `${spotifyAuthBase}/authorize`;
+const spotifyAuthToken = `${spotifyAuthBase}/api/token`;
 const siteUrl = process.env.URL || 'http://localhost:9000';
 
 require('dotenv').config();
 
 export const config = {
-  appId: process.env.SPOTIFY_APP_ID,
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-  tokenHost: spotifyApi,
-  authorizePath: spotifyApi,
-  tokenPath: `${spotifyApi}/auth/eagle/token`,
-  profilePath: `${spotifyApi}/me/`,
-  redirect_uri: `${siteUrl}/callback`
+  tokenHost: spotifyAuthToken,
+  tokenPath: spotifyAuthToken,
+  authorizePath: spotifyAuthCode,
+  redirectUri: `${siteUrl}/callback`
 };
 
 function authInstance(credentials) {
@@ -25,7 +25,6 @@ function authInstance(credentials) {
       'MISSING REQUIRED ENV VARS. Please set SPOTIFY_CLIENT_SECRET'
     );
   }
-  // return oauth instance
   return simpleOauth.create(credentials);
 }
 
@@ -36,6 +35,7 @@ export default authInstance({
   },
   auth: {
     tokenHost: config.tokenHost,
+    tokenPath: config.tokenPath,
     authorizePath: config.authorizePath
   }
 });

@@ -1,38 +1,47 @@
-import oauth2, { config } from './util/auth';
+import oauth, { config } from './util/auth';
+import jwt from 'jsonwebtoken';
 
-exports.handler = (event, context, callback) => {
-  const code = event.queryStringParameters.code;
-  const state = event.queryStringParameters.state;
+require('dotenv').config();
 
-  oauth2.authorizationCode
-    .getToken({
-      code: code,
-      redirect_uri: config.redirect_uri,
-      client_id: config.clientId,
-      client_secret: config.clientSecret
-    })
-    .then(result => {
-      const token = oauth2.accessToken.create(result);
-      console.log('accessToken', token);
-      return token;
-    })
-    .then(result => {
-      console.log('auth token', result.token);
-      console.log('user data', result.data);
-      console.log('state', state);
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(result)
-      });
-    })
-    .catch(error => {
-      console.log('Access Token Error', error.message);
-      console.log(error);
-      return callback(null, {
-        statusCode: error.statusCode || 500,
-        body: JSON.stringify({
-          error: error.message
-        })
-      });
+const { redirectUri, clientId, clientSecret } = config;
+
+exports.handler = async (event, context, callback) => {
+  if (!event.queryStringParameters) {
+    return callback(null, {
+      statusCode: 401,
+      body: JSON.stringify({
+        error: 'Not authorized'
+      })
     });
+  }
+
+  const code = event.queryStringParameters.code;
+
+  try {
+    const authorizationToken = await oauth.authorizationCode.getToken({
+      code,
+      redirect_uri: redirectUri,
+      client_id: clientId,
+      client_secret: clientSecret
+    });
+
+    const authResult = oauth.accessToken.create(authorizationToken);
+    const token = jwt.sign(
+      { accessToken: authResult.token.access_token },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({ token })
+    });
+  } catch (e) {
+    return callback(null, {
+      statusCode: 401,
+      body: JSON.stringify({
+        error: e.message
+      })
+    });
+  }
 };
