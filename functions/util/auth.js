@@ -8,6 +8,7 @@ const siteUrl = process.env.URL || 'http://localhost:9000';
 require('dotenv').config();
 
 export const config = {
+  siteUrl,
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   tokenHost: spotifyAuthToken,

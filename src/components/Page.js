@@ -62,6 +62,17 @@ export const Page = ({ children }) => {
       <Container>
         <Header>
           <h1>This playlist</h1>
+          <button
+            onClick={() => {
+              window.open(
+                'http://localhost:9000/login',
+                'login',
+                'titlebar=no,width=400,height=500,modal=true'
+              );
+            }}
+          >
+            Login
+          </button>
         </Header>
         <Main>{children}</Main>
       </Container>

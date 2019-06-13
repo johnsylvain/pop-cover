@@ -1,9 +1,10 @@
 import oauth, { config } from './util/auth';
 import jwt from 'jsonwebtoken';
+import querystring from 'querystring';
 
 require('dotenv').config();
 
-const { redirectUri, clientId, clientSecret } = config;
+const { redirectUri, clientId, clientSecret, siteUrl } = config;
 
 exports.handler = async (event, context, callback) => {
   if (!event.queryStringParameters) {
@@ -33,7 +34,12 @@ exports.handler = async (event, context, callback) => {
     );
 
     return callback(null, {
-      statusCode: 200,
+      statusCode: 302,
+      headers: {
+        Location: `http://localhost:1234/?${querystring.encode({
+          token
+        })}`
+      },
       body: JSON.stringify({ token })
     });
   } catch (e) {
