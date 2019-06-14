@@ -3,7 +3,10 @@ const LS_KEYS = {
   TOKEN_EXPIRES: 'spotifyTokenExpiry',
   USERNAME: 'spotifyUsername'
 };
-const LOGIN_URL = 'http://localhost:9000/login';
+const LOGIN_URL =
+  process.env.NODE_ENV === 'production'
+    ? '/.netlify/functions/login'
+    : 'http://localhost:9000/login';
 
 export const getToken = () => {
   const token = localStorage.getItem(LS_KEYS.TOKEN);
