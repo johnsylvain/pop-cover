@@ -3,7 +3,9 @@ const simpleOauth = require('simple-oauth2');
 const spotifyAuthBase = 'https://accounts.spotify.com';
 const spotifyAuthCode = `${spotifyAuthBase}/authorize`;
 const spotifyAuthToken = `${spotifyAuthBase}/api/token`;
-const siteUrl = process.env.URL || 'http://localhost:9000';
+const siteUrl = process.env.URL
+  ? `${process.env.URL}/.netlify/functions`
+  : 'http://localhost:9000';
 
 require('dotenv').config();
 
