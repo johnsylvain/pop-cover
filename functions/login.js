@@ -1,10 +1,18 @@
-exports.handler = function(event, context, callback) {
+import oauth2, { config } from './util/auth';
+
+exports.handler = (event, context, callback) => {
+  const authorizationURI = oauth2.authorizationCode.authorizeURL({
+    redirect_uri: config.redirectUri,
+    scope: 'playlist-modify-public user-read-email',
+    state: ''
+  });
+
   callback(null, {
-    statusCode: 200,
+    statusCode: 302,
     headers: {
-      Location: 'https://accounts.spotify.com/authorize',
+      Location: authorizationURI,
       'Cache-Control': 'no-cache'
     },
-    body: 'nice'
+    body: ''
   });
 };

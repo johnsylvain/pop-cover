@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useCoverArt } from '../context/cover-art';
+import { useAuth } from '../context/auth';
+
+import { downloadImage } from '../util/image';
+
+import { playlistService } from '../services/playlist';
 
 import { Input } from './Input';
 import { Button } from './Button';
@@ -31,6 +36,15 @@ const StyledControls = styled.div`
 
 export const Controls = () => {
   const [{ name, renderer }, dispatch] = useCoverArt();
+  const [{ token, isAuthed }] = useAuth();
+
+  const createPlaylist = () => {
+    playlistService
+      .create({ token, name, image: renderer.export() })
+      .then(response => {
+        console.log(response);
+      });
+  };
 
   const setName = name => {
     dispatch({
@@ -39,11 +53,18 @@ export const Controls = () => {
     });
   };
 
-  const downloadImage = (data, filename) => {
-    const a = document.createElement('a');
-    a.href = data;
-    a.download = filename;
-    a.click();
+  const setFile = file => {
+    if (file.type === 'image/png') {
+      const url = window.URL.createObjectURL(file);
+      const image = new Image();
+      image.src = url;
+      image.addEventListener('load', () => {
+        dispatch({
+          type: 'SET_IMAGE',
+          payload: image
+        });
+      });
+    }
   };
 
   return (
@@ -55,21 +76,7 @@ export const Controls = () => {
         value={name}
       />
 
-      <FileDrop
-        onChange={file => {
-          if (file.type === 'image/png') {
-            const url = window.URL.createObjectURL(file);
-            const image = new Image();
-            image.src = url;
-            image.addEventListener('load', () => {
-              dispatch({
-                type: 'SET_IMAGE',
-                payload: image
-              });
-            });
-          }
-        }}
-      />
+      <FileDrop onChange={setFile} />
 
       <GradientPicker />
 
@@ -86,7 +93,9 @@ export const Controls = () => {
         >
           Download JPEG
         </Button>
-        <Button primary>Create Playlist</Button>
+        <Button primary onClick={createPlaylist} disabled={!isAuthed}>
+          Create Playlist
+        </Button>
       </div>
     </StyledControls>
   );
