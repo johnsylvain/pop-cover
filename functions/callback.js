@@ -26,7 +26,7 @@ exports.handler = async (event, context, callback) => {
       client_secret: clientSecret
     });
 
-    const authResult = oauth.accessToken.create(authorizationToken);
+    let authResult = oauth.accessToken.create(authorizationToken);
     const token = jwt.sign(
       { accessToken: authResult.token.access_token },
       process.env.JWT_SECRET,
@@ -36,11 +36,9 @@ exports.handler = async (event, context, callback) => {
     return callback(null, {
       statusCode: 302,
       headers: {
-        Location: `http://localhost:1234/?${querystring.encode({
-          token
-        })}`
+        Location: `http://localhost:1234/callback?access_token=${token}`
       },
-      body: JSON.stringify({ token })
+      body: ''
     });
   } catch (e) {
     return callback(null, {

@@ -1,16 +1,22 @@
 import React, { useContext, useReducer } from 'react';
 
+import { getToken } from '../util/auth';
+
 const Context = React.createContext();
 
+const token = getToken();
+
 const initialState = {
-  token: null,
-  isAuthed: false
+  token,
+  isAuthed: !!token
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'SET_TOKEN':
+    case 'LOGIN':
       return { ...state, token: action.payload, isAuthed: true };
+    case 'LOGOUT':
+      return { ...state, token: undefined, isAuthed: false };
     default:
       return state;
   }

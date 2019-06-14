@@ -16,6 +16,11 @@ export const Button = styled.button`
     opacity: 1;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   ${props =>
     props.primary &&
     css`

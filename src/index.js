@@ -1,57 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-
-import { CoverArt } from './components/CoverArt';
-import { Controls } from './components/Controls';
-import { Page } from './components/Page';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import { GlobalStyle } from './styles/GlobalStyle';
 
 import { CoverArtProvider } from './context/cover-art';
-import { AuthProvider, useAuth } from './context/auth';
+import { AuthProvider } from './context/auth';
 
-function getQueryStringValue(key) {
-  return decodeURIComponent(
-    window.location.search.replace(
-      new RegExp(
-        '^(?:.*[&\\?]' +
-          encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&') +
-          '(?:\\=([^&]*))?)?.*$',
-        'i'
-      ),
-      '$1'
-    )
-  );
-}
-
-const Home = () => {
-  const [{ isAuthed }, dispatch] = useAuth();
-  const token = getQueryStringValue('token');
-
-  useEffect(() => {
-    if (!isAuthed && token) {
-      dispatch({
-        type: 'SET_TOKEN',
-        payload: token
-      });
-      window.localStorage.setItem('token', token);
-    }
-  }, [isAuthed, token]);
-
-  return (
-    <Page>
-      <CoverArt />
-      <Controls />
-    </Page>
-  );
-};
+import { Home } from './pages/Home';
+import { Callback } from './pages/Callback';
 
 const App = () => {
   return (
     <AuthProvider>
       <CoverArtProvider>
         <GlobalStyle />
-        <Home></Home>
+        <BrowserRouter>
+          <Route path="/" exact component={Home} />
+          <Route path="/callback" exact component={Callback} />
+        </BrowserRouter>
       </CoverArtProvider>
     </AuthProvider>
   );

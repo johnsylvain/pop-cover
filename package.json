@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "NODE_ENV=development parcel src/index.html",
     "start:functions": "netlify-lambda serve functions",
-    "build": "parcel build src/index.html && yarn build:functions",
+    "build": "NODE_ENV=production parcel build src/index.html && yarn build:functions",
     "build:functions": "netlify-lambda build functions",
     "prettier": "pretty-quick"
   },
@@ -27,6 +27,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
+    "react-router-dom": "^5.0.1",
     "styled-components": "^4.3.1"
   },
   "husky": {

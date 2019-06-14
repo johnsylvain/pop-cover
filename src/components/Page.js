@@ -4,18 +4,7 @@ import styled from 'styled-components';
 import bg from '../styles/resources/bg-swoop.svg';
 
 import { Container } from './Container';
-
-const Header = styled.header`
-  display: flex;
-  align-items: baseline;
-  padding: 40px 0;
-
-  & > h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    flex-grow: 1;
-  }
-`;
+import { Header } from './Header';
 
 const Footer = styled.footer`
   font-size: 0.8rem;
@@ -60,20 +49,7 @@ export const Page = ({ children }) => {
   return (
     <Wrapper>
       <Container>
-        <Header>
-          <h1>This playlist</h1>
-          <button
-            onClick={() => {
-              window.open(
-                'http://localhost:9000/login',
-                'login',
-                'titlebar=no,width=400,height=500,modal=true'
-              );
-            }}
-          >
-            Login
-          </button>
-        </Header>
+        <Header></Header>
         <Main>{children}</Main>
       </Container>
       <Wave></Wave>
