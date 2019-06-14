@@ -40,7 +40,7 @@ export const Controls = () => {
 
   const createPlaylist = () => {
     playlistService
-      .create({ name, image: renderer.export() }, token)
+      .create({ token, name, image: renderer.export() })
       .then(response => {
         console.log(response);
       });

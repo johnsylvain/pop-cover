@@ -1,19 +1,12 @@
 import axios from '../config/axios';
 
 class PlaylistService {
-  create({ name, image }, token) {
-    return axios.post(
-      '/create-playlist',
-      {
-        name,
-        image
-      },
-      {
-        headers: {
-          Authorization: `Bearer: ${token}`
-        }
-      }
-    );
+  create({ name, image, token }) {
+    return axios.post('/create-playlist', {
+      name,
+      image,
+      token
+    });
   }
 }
 
