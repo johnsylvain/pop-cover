@@ -35,13 +35,15 @@ const StyledControls = styled.div`
 `;
 
 export const Controls = () => {
-  const [{ name, image, renderer }, dispatch] = useCoverArt();
+  const [{ name, renderer }, dispatch] = useCoverArt();
   const [{ token, isAuthed }] = useAuth();
 
   const createPlaylist = () => {
-    playlistService.create({ name, image }, token).then(response => {
-      console.log(response);
-    });
+    playlistService
+      .create({ name, image: renderer.export() }, token)
+      .then(response => {
+        console.log(response);
+      });
   };
 
   const setName = name => {
