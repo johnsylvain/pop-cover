@@ -1,8 +1,10 @@
 import oauth, { config } from './util/auth';
 import jwt from 'jsonwebtoken';
-import querystring from 'querystring';
 
 require('dotenv').config();
+
+const baseUrl =
+  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:1234';
 
 const { redirectUri, clientId, clientSecret, siteUrl } = config;
 
@@ -36,7 +38,7 @@ exports.handler = async (event, context, callback) => {
     return callback(null, {
       statusCode: 302,
       headers: {
-        Location: `http://localhost:1234/callback?access_token=${token}`
+        Location: `${baseUrl}/callback?access_token=${token}`
       },
       body: ''
     });
