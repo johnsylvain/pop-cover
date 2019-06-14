@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development parcel src/index.html",
     "start:functions": "NODE_ENV=development netlify-lambda serve functions",
     "build": "NODE_ENV=production parcel build src/index.html && yarn build:functions",
-    "build:functions": "NODE_ENV=production netlify-lambda build functions",
+    "build:functions": "netlify-lambda build functions",
     "prettier": "pretty-quick"
   },
   "keywords": [],
