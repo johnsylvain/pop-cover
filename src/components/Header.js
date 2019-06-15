@@ -26,7 +26,7 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <h1>This playlist</h1>
+      <h1>Listify</h1>
       {isAuthed ? (
         <Button
           onClick={() => {
