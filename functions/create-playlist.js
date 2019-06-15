@@ -24,34 +24,33 @@ exports.handler = (event, context, callback) => {
     body.token,
     process.env.JWT_SECRET,
     async (err, { accessToken }) => {
+      const headers = {
+        Authorization: `Bearer ${accessToken}`
+      };
       try {
-        const {
-          data: { id }
-        } = await axios.get('https://api.spotify.com/v1/me', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+        const me = await axios.get('https://api.spotify.com/v1/me', {
+          headers
         });
+
         const playlist = await axios.post(
-          `https://api.spotify.com/v1/users/${id}/playlists`,
+          `https://api.spotify.com/v1/users/${me.data.id}/playlists`,
           {
             name: `This is ${body.name}`,
-            description: `This is ${body.name}. The essential tracks, all in one playlist.`,
+            description: `This is ${body.name}. The essential tracks, all in one playlist. (Created with www.listify.pro)`,
             public: true
           },
           {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
+            headers
           }
         );
+
         const images = await axios.put(
           `https://api.spotify.com/v1/playlists/${playlist.data.id}/images`,
           body.image,
           {
             headers: {
-              'Content-Type': 'image/jpeg',
-              Authorization: `Bearer ${accessToken}`
+              ...headers,
+              'Content-Type': 'image/jpeg'
             }
           }
         );
