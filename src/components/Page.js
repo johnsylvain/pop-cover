@@ -5,6 +5,7 @@ import bg from '../styles/resources/bg-swoop.svg';
 
 import { Container } from './Container';
 import { Header } from './Header';
+import { Snackbar } from './Snackbar';
 
 const Footer = styled.footer`
   font-size: 0.8rem;
@@ -47,17 +48,20 @@ const Wrapper = styled.div`
 
 export const Page = ({ children }) => {
   return (
-    <Wrapper>
-      <Container>
-        <Header></Header>
-        <Main>{children}</Main>
-      </Container>
-      <Wave></Wave>
-      <Footer>
+    <>
+      <Wrapper>
         <Container>
-          <p>&copy; John Sylvain {new Date().getFullYear()}</p>
+          <Header></Header>
+          <Main>{children}</Main>
         </Container>
-      </Footer>
-    </Wrapper>
+        <Wave></Wave>
+        <Footer>
+          <Container>
+            <p>&copy; John Sylvain {new Date().getFullYear()}</p>
+          </Container>
+        </Footer>
+      </Wrapper>
+      <Snackbar></Snackbar>
+    </>
   );
 };

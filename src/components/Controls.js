@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useCoverArt } from '../context/cover-art';
 import { useAuth } from '../context/auth';
+import { useSnackbar } from '../context/snackbar';
 
 import { downloadImage } from '../util/image';
 
@@ -16,7 +17,7 @@ import { GradientPicker } from './GradientPicker';
 const StyledControls = styled.div`
   border-radius: 5px;
   background: white;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -37,12 +38,16 @@ const StyledControls = styled.div`
 export const Controls = () => {
   const [{ name, renderer }, dispatch] = useCoverArt();
   const [{ token, isAuthed }] = useAuth();
+  const { setSnackbar } = useSnackbar();
 
   const createPlaylist = () => {
     playlistService
       .create({ token, name, image: renderer.export() })
       .then(response => {
-        console.log(response);
+        setSnackbar({ message: 'Playlist created.' });
+      })
+      .catch(error => {
+        setSnackbar({ message: 'Oops. Please try again in a moment.' });
       });
   };
 
@@ -54,17 +59,15 @@ export const Controls = () => {
   };
 
   const setFile = file => {
-    if (file.type === 'image/png') {
-      const url = window.URL.createObjectURL(file);
-      const image = new Image();
-      image.src = url;
-      image.addEventListener('load', () => {
-        dispatch({
-          type: 'SET_IMAGE',
-          payload: image
-        });
+    const url = window.URL.createObjectURL(file);
+    const image = new Image();
+    image.src = url;
+    image.addEventListener('load', () => {
+      dispatch({
+        type: 'SET_IMAGE',
+        payload: image
       });
-    }
+    });
   };
 
   return (
@@ -76,7 +79,13 @@ export const Controls = () => {
         value={name}
       />
 
-      <FileDrop onChange={setFile} />
+      <FileDrop
+        onChange={setFile}
+        accept="image/png"
+        onError={() => {
+          setSnackbar({ message: 'Please upload a PNG' });
+        }}
+      />
 
       <GradientPicker />
 
