@@ -27,7 +27,7 @@ export class CoverArtRenderer {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context.globalCompositeOperation = 'destination-over';
 
-    if (this.artistImage) {
+    if (this.artistImage && this.artistImage.type === 'image/png') {
       const ratio = this.canvas.width / this.artistImage.width;
       const height = this.artistImage.height * ratio;
       this.context.drawImage(
@@ -66,6 +66,10 @@ export class CoverArtRenderer {
     gradient.addColorStop(0.3, this.gradient[0]);
     gradient.addColorStop(1, this.gradient[1]);
 
+    if (this.artistImage && this.artistImage.type === 'image/jpeg') {
+      this.context.globalAlpha = 0.3;
+    }
+
     this.context.fillStyle = gradient;
     this.context.fillRect(
       0,
@@ -73,6 +77,20 @@ export class CoverArtRenderer {
       this.canvas.width,
       this.canvas.height * 0.6
     );
+
+    this.context.globalAlpha = 1;
+
+    if (this.artistImage && this.artistImage.type === 'image/jpeg') {
+      const ratio = this.canvas.width / this.artistImage.width;
+      const height = this.artistImage.height * ratio;
+      this.context.drawImage(
+        this.artistImage,
+        0,
+        this.canvas.height * 0.4,
+        this.canvas.width,
+        height
+      );
+    }
 
     this.context.fillStyle = 'white';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);

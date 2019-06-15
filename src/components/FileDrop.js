@@ -12,7 +12,7 @@ const FileDropBase = styled.div`
 export const FileDrop = ({ onChange, onError, accept }) => {
   const [file, setFile] = useState();
   const onDrop = useCallback(([file]) => {
-    if (accept.includes(file.type)) {
+    if (accept.includes(file.type.split('/')[1])) {
       onChange(file);
       setFile(file);
     } else {
@@ -27,14 +27,14 @@ export const FileDrop = ({ onChange, onError, accept }) => {
         {...getInputProps()}
         type="file"
         id="artist-image"
-        accept=".png"
+        accept={accept}
         active={isDragActive}
       />
       <label htmlFor="artist-image">
         {file ? (
           <span>{file ? file.name : '1 image'} added</span>
         ) : (
-          <span>Drag and drop a PNG</span>
+          <span>Drag and drop an image</span>
         )}
       </label>
     </FileDropBase>
