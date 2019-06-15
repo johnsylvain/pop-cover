@@ -64,6 +64,7 @@ export const Controls = () => {
     const url = window.URL.createObjectURL(file);
     const image = new Image();
     image.src = url;
+    image.type = file.type;
     image.addEventListener('load', () => {
       dispatch({
         type: 'SET_IMAGE',
@@ -83,9 +84,9 @@ export const Controls = () => {
 
       <FileDrop
         onChange={setFile}
-        accept="image/png"
+        accept=".png,.jpg,.jpeg"
         onError={() => {
-          setSnackbar({ message: 'Please upload a PNG' });
+          setSnackbar({ message: 'Please upload a PNG or a JPEG' });
         }}
       />
 
