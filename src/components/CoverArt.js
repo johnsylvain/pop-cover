@@ -15,7 +15,7 @@ export const CoverArt = () => {
   const canvasRef = useRef(null);
   const [renderer, setRenderer] = useState();
   const [{ name, image, backdrop }, dispatch] = useCoverArt();
-  const dimensions = 1000;
+  const dimensions = 500;
 
   useEffect(() => {
     if (canvasRef.current) {

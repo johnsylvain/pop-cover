@@ -35,8 +35,8 @@ exports.handler = (event, context, callback) => {
         const playlist = await axios.post(
           `https://api.spotify.com/v1/users/${id}/playlists`,
           {
-            name: `This is: ${body.name}`,
-            description: 'All in one playlist',
+            name: `This is ${body.name}`,
+            description: `This is ${body.name}. The essential tracks, all in one playlist.`,
             public: true
           },
           {

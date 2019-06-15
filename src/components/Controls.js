@@ -41,8 +41,10 @@ export const Controls = () => {
   const { setSnackbar } = useSnackbar();
 
   const createPlaylist = () => {
+    const imageData = renderer.export(0.9).split(',');
+    const [_, image] = imageData;
     playlistService
-      .create({ token, name, image: renderer.export() })
+      .create({ token, name, image })
       .then(response => {
         setSnackbar({ message: 'Playlist created.' });
       })

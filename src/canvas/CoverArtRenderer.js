@@ -78,7 +78,7 @@ export class CoverArtRenderer {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  export() {
-    return this.canvas.toDataURL('image/jpeg', 1.0);
+  export(quality = 1.0) {
+    return this.canvas.toDataURL('image/jpeg', quality);
   }
 }
