@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { login, logout } from '../util/auth';
+
 import { useAuth } from '../context/auth';
+import { useSnackbar } from '../context/snackbar';
+
 import { Button } from './Button';
 
 const StyledHeader = styled.header`
@@ -19,6 +22,7 @@ const StyledHeader = styled.header`
 
 export const Header = () => {
   const [{ isAuthed }, dispatch] = useAuth();
+  const { setSnackbar } = useSnackbar();
 
   return (
     <StyledHeader>
@@ -28,6 +32,7 @@ export const Header = () => {
           onClick={() => {
             logout();
             dispatch({ type: 'LOGOUT' });
+            setSnackbar({ message: 'Logged out!' });
           }}
         >
           Logout
@@ -38,6 +43,7 @@ export const Header = () => {
             login().then(token => {
               if (token) {
                 dispatch({ type: 'LOGIN', payload: token });
+                setSnackbar({ message: 'Welcome! 👋' });
               }
             });
           }}

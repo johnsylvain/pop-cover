@@ -4,11 +4,15 @@ import { Page } from '../components/Page';
 import { Controls } from '../components/Controls';
 import { CoverArt } from '../components/CoverArt';
 
+import { SnackbarProvider } from '../context/snackbar';
+
 export const Home = () => {
   return (
-    <Page>
-      <CoverArt />
-      <Controls />
-    </Page>
+    <SnackbarProvider>
+      <Page>
+        <CoverArt />
+        <Controls />
+      </Page>
+    </SnackbarProvider>
   );
 };

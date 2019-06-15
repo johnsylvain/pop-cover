@@ -9,11 +9,15 @@ const FileDropBase = styled.div`
   margin-bottom: 20px;
 `;
 
-export const FileDrop = ({ onChange }) => {
+export const FileDrop = ({ onChange, onError, accept }) => {
   const [file, setFile] = useState();
   const onDrop = useCallback(([file]) => {
-    onChange(file);
-    setFile(file);
+    if (accept.includes(file.type)) {
+      onChange(file);
+      setFile(file);
+    } else {
+      onError();
+    }
   });
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

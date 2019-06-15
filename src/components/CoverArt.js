@@ -7,7 +7,7 @@ import { useCoverArt } from '../context/cover-art';
 
 const Canvas = styled.canvas`
   width: 100%;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 `;
 

@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import bg from './resources/bg-swoop.svg';
 
 export const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
