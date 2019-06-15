@@ -5,7 +5,7 @@ import { useTransition, animated } from 'react-spring';
 import { useSnackbar } from '../context/snackbar';
 
 const StyledSnackbar = styled(animated.div)`
-  background: rgba(26, 20, 20, 0.7);
+  background: rgba(26, 20, 20, 0.9);
   color: white;
   font-weight: 500;
   position: fixed;
