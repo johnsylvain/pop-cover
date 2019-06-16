@@ -41,7 +41,7 @@ export const Header = () => {
           onClick={() => {
             logout();
             dispatch({ type: 'LOGOUT' });
-            setSnackbar({ message: 'Logged out!' });
+            setSnackbar({ message: 'Logged out.' });
           }}
         >
           Logout

@@ -8,14 +8,14 @@ exports.handler = (event, context, callback) => {
 
   if (event.httpMethod !== 'POST') {
     return callback(null, {
-      statusCode: 200,
+      statusCode: 405,
       body: 'Invalid request method'
     });
   }
 
   if (!body.token || !body.image || !body.name) {
     return callback(null, {
-      statusCode: 200,
+      statusCode: 411,
       body: JSON.stringify('missing_information')
     });
   }
@@ -43,7 +43,7 @@ exports.handler = (event, context, callback) => {
         { headers }
       );
 
-      await axios.put(
+      const images = await axios.put(
         `https://api.spotify.com/v1/playlists/${playlist.data.id}/images`,
         body.image,
         {
@@ -63,7 +63,7 @@ exports.handler = (event, context, callback) => {
       });
     } catch (e) {
       return callback(null, {
-        statusCode: 200,
+        statusCode: 401,
         headers: {
           'Content-Type': 'application/json'
         },

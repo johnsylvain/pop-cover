@@ -19,7 +19,8 @@ import { Checkbox } from './Checkbox';
 const StyledControls = styled.div`
   border-radius: 5px;
   background: white;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 16px 32px 0px,
+    rgba(0, 0, 0, 0.08) 0px 8px 16px 0px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -49,6 +50,11 @@ const StyledControls = styled.div`
   }
 `;
 
+const Link = styled.a`
+  color: white;
+  font-weight: 600;
+`;
+
 export const Controls = () => {
   const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
   const [{ token, isAuthed }, dispatchAuth] = useAuth();
@@ -71,14 +77,17 @@ export const Controls = () => {
       .then(response => {
         setSnackbar({
           timeout: 6000,
-          message: 'Playlist created.',
-          link: {
-            url: response.external_urls.spotify,
-            text: 'See it here.'
-          }
+          message: (
+            <span>
+              Playlist created.{' '}
+              <Link href={response.data.external_urls.spotify} target="_blank">
+                See it here.
+              </Link>
+            </span>
+          )
         });
       })
-      .catch(() => {
+      .catch(error => {
         setSnackbar({
           message: 'Oops. Please try again in a moment.'
         });
