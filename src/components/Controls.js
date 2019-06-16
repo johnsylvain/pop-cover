@@ -70,6 +70,7 @@ export const Controls = () => {
     playlistService
       .create({ token, name, image })
       .then(response => {
+        console.log({ response });
         setSnackbar({
           timeout: 6000,
           message: 'Playlist created.',
@@ -79,7 +80,8 @@ export const Controls = () => {
           }
         });
       })
-      .catch(() => {
+      .catch(error => {
+        console.log({ error });
         setSnackbar({
           message: 'Oops. Please try again in a moment.'
         });
