@@ -39,12 +39,10 @@ exports.handler = (event, context, callback) => {
             description: `This is ${body.name}. The essential tracks, all in one playlist. (Created with www.listify.pro)`,
             public: true
           },
-          {
-            headers
-          }
+          { headers }
         );
 
-        const images = await axios.put(
+        await axios.put(
           `https://api.spotify.com/v1/playlists/${playlist.data.id}/images`,
           body.image,
           {
@@ -60,7 +58,7 @@ exports.handler = (event, context, callback) => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(images.data)
+          body: JSON.stringify(playlist.data)
         });
       } catch (e) {
         return callback(null, {

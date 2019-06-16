@@ -35,18 +35,31 @@ const StyledControls = styled.div`
   }
 `;
 
+const Link = styled.a`
+  color: white;
+  font-weight: 700;
+`;
+
 export const Controls = () => {
   const [{ name, renderer }, dispatch] = useCoverArt();
   const [{ token, isAuthed }] = useAuth();
   const { setSnackbar } = useSnackbar();
 
   const createPlaylist = () => {
-    const imageData = renderer.export(0.9).split(',');
-    const [_, image] = imageData;
+    const image = renderer.export(0.9).split(',')[1];
     playlistService
       .create({ token, name, image })
       .then(response => {
-        setSnackbar({ message: 'Playlist created.' });
+        setSnackbar({
+          message: (
+            <span>
+              Playlist created.{' '}
+              <Link href={response.external_urls.spotify} target="_blank">
+                View here.
+              </Link>
+            </span>
+          )
+        });
       })
       .catch(error => {
         setSnackbar({ message: 'Oops. Please try again in a moment.' });
