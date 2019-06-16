@@ -13,6 +13,7 @@ import { Input } from './Input';
 import { Button } from './Button';
 import { FileDrop } from './FileDrop';
 import { GradientPicker } from './GradientPicker';
+import { Checkbox } from './Checkbox';
 
 const StyledControls = styled.div`
   border-radius: 5px;
@@ -23,14 +24,26 @@ const StyledControls = styled.div`
   flex-direction: column;
   padding: 20px;
 
+  > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
   > .controls-footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    padding-top: 20px;
 
     & > *:not(:last-child) {
       margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+
+      > * {
+        width: 50%;
+        margin: 0 !important;
+      }
     }
   }
 `;
@@ -41,7 +54,7 @@ const Link = styled.a`
 `;
 
 export const Controls = () => {
-  const [{ name, renderer }, dispatch] = useCoverArt();
+  const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
   const [{ token, isAuthed }] = useAuth();
   const { setSnackbar } = useSnackbar();
 
@@ -102,6 +115,17 @@ export const Controls = () => {
           setSnackbar({ message: 'Please upload a PNG or a JPEG' });
         }}
       />
+
+      <Checkbox
+        id="overlay"
+        disabled={!image || image.type !== 'image/png'}
+        value={isOverlay}
+        onChange={() => {
+          dispatch({ type: 'SET_OVERLAY', payload: !isOverlay });
+        }}
+      >
+        <span>Overlay image (PNG only)</span>
+      </Checkbox>
 
       <GradientPicker />
 

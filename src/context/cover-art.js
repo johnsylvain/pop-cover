@@ -13,6 +13,7 @@ const backdrops = [
 const initialState = {
   name: '',
   image: null,
+  isOverlay: false,
   backdrop: backdrops[0],
   backdrops
 };
@@ -27,6 +28,8 @@ function reducer(state, action) {
       return { ...state, name: action.payload };
     case 'SET_IMAGE':
       return { ...state, image: action.payload };
+    case 'SET_OVERLAY':
+      return { ...state, isOverlay: action.payload };
     default:
       return state;
   }

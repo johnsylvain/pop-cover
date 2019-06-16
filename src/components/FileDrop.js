@@ -6,7 +6,6 @@ import { Input } from './Input';
 
 const FileDropBase = styled.div`
   flex: 1;
-  margin-bottom: 20px;
 `;
 
 export const FileDrop = ({ onChange, onError, accept }) => {

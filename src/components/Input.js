@@ -16,7 +16,6 @@ export const Input = styled.input`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
 
     @media (max-width: 1000px) {
       font-size: 0.9rem;

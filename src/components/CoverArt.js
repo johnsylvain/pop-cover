@@ -14,7 +14,7 @@ const Canvas = styled.canvas`
 export const CoverArt = () => {
   const canvasRef = useRef(null);
   const [renderer, setRenderer] = useState();
-  const [{ name, image, backdrop }, dispatch] = useCoverArt();
+  const [{ name, image, backdrop, isOverlay }, dispatch] = useCoverArt();
   const dimensions = 500;
 
   useEffect(() => {
@@ -45,6 +45,12 @@ export const CoverArt = () => {
       renderer.update({ image });
     }
   }, [image, renderer]);
+
+  useEffect(() => {
+    if (renderer) {
+      renderer.update({ isOverlay });
+    }
+  }, [isOverlay, renderer]);
 
   return (
     <Canvas ref={canvasRef} width={dimensions} height={dimensions}></Canvas>

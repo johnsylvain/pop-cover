@@ -5,6 +5,7 @@ export class CoverArtRenderer {
     this.defaultName = 'Music';
     this.artistName = this.defaultName;
     this.gradient = ['#E7DDE0', '#6C84B0'];
+    this.isOverlay = false;
 
     const dpr = window.devicePixelRatio || 1;
     this.canvas.width = this.canvas.width * dpr;
@@ -14,11 +15,13 @@ export class CoverArtRenderer {
   }
 
   update(newParams) {
-    const { name, image, backdrop } = newParams;
+    const { name, image, backdrop, isOverlay } = newParams;
     this.artistName =
       typeof name === 'undefined' ? this.artistName : name.trim();
     this.artistImage = image || this.artistImage;
     this.gradient = backdrop || this.gradient;
+    this.isOverlay =
+      typeof isOverlay === 'boolean' ? isOverlay : this.isOverlay;
 
     this.render();
   }
@@ -27,7 +30,11 @@ export class CoverArtRenderer {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context.globalCompositeOperation = 'destination-over';
 
-    if (this.artistImage && this.artistImage.type === 'image/png') {
+    if (
+      this.isOverlay &&
+      this.artistImage &&
+      this.artistImage.type === 'image/png'
+    ) {
       const ratio = this.canvas.width / this.artistImage.width;
       const height = this.artistImage.height * ratio;
       this.context.drawImage(
@@ -66,8 +73,11 @@ export class CoverArtRenderer {
     gradient.addColorStop(0.3, this.gradient[0]);
     gradient.addColorStop(1, this.gradient[1]);
 
-    if (this.artistImage && this.artistImage.type === 'image/jpeg') {
-      this.context.globalAlpha = 0.3;
+    if (
+      this.artistImage &&
+      (!this.isOverlay || this.artistImage.type === 'image/jpeg')
+    ) {
+      this.context.globalAlpha = 0.4;
     }
 
     this.context.fillStyle = gradient;
@@ -80,7 +90,10 @@ export class CoverArtRenderer {
 
     this.context.globalAlpha = 1;
 
-    if (this.artistImage && this.artistImage.type === 'image/jpeg') {
+    if (
+      this.artistImage &&
+      (!this.isOverlay || this.artistImage.type === 'image/jpeg')
+    ) {
       const ratio = this.canvas.width / this.artistImage.width;
       const height = this.artistImage.height * ratio;
       this.context.drawImage(
