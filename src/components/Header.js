@@ -7,6 +7,7 @@ import { useAuth } from '../context/auth';
 import { useSnackbar } from '../context/snackbar';
 
 import { Button } from './Button';
+import { Logo } from './Icon';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -17,6 +18,12 @@ const StyledHeader = styled.header`
     font-size: 1.5rem;
     font-weight: 700;
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+
+    > svg {
+      margin-right: 10px;
+    }
   }
 `;
 
@@ -26,7 +33,9 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <h1>Listify</h1>
+      <h1>
+        <Logo /> Listify
+      </h1>
       {isAuthed ? (
         <Button
           onClick={() => {

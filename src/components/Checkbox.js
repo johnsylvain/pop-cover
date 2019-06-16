@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Check } from './Icon';
+import { CheckboxChecked, CheckboxUnchecked } from './Icon';
 
 const StyledInput = styled.input`
   appearance: none;
@@ -13,27 +13,32 @@ const StyledInput = styled.input`
 
 const CheckBoxWrapper = styled.div`
   position: relative;
-  vertical-align: middle;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  margin-right: 5px;
   width: 24px;
   height: 24px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  margin-right: 10px;
+
+  svg {
+    font-size: 24px;
+  }
 
   svg[data-name='checked'] {
     display: none;
-    font-size: 20px;
     fill: #3498db;
+  }
+
+  svg[data-name='empty'] {
+    display: inline-block;
+    fill: rgba(0, 0, 0, 0.1);
   }
 
   > input:checked {
     & ~ svg[data-name='checked'] {
       display: inline-block;
+    }
+
+    & ~ svg[data-name='empty'] {
+      display: none;
     }
   }
 `;
@@ -54,7 +59,8 @@ export const Checkbox = ({ children, ...props }) => {
     <Label disabled={disabled}>
       <CheckBoxWrapper>
         <StyledInput type="checkbox" {...props} />
-        <Check data-name="checked" />
+        <CheckboxChecked data-name="checked" />
+        <CheckboxUnchecked data-name="empty" />
       </CheckBoxWrapper>
       {children}
     </Label>
