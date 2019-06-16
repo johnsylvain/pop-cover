@@ -50,6 +50,11 @@ const StyledControls = styled.div`
   }
 `;
 
+const Link = styled.a`
+  color: white;
+  font-weight: 600;
+`;
+
 export const Controls = () => {
   const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
   const [{ token, isAuthed }, dispatchAuth] = useAuth();
@@ -70,18 +75,19 @@ export const Controls = () => {
     playlistService
       .create({ token, name, image })
       .then(response => {
-        console.log({ response });
         setSnackbar({
           timeout: 6000,
-          message: 'Playlist created.',
-          link: {
-            url: response.external_urls.spotify,
-            text: 'See it here.'
-          }
+          message: (
+            <span>
+              Playlist created.{' '}
+              <Link href={response.data.external_urls.spotify} target="_blank">
+                See it here.
+              </Link>
+            </span>
+          )
         });
       })
       .catch(error => {
-        console.log({ error });
         setSnackbar({
           message: 'Oops. Please try again in a moment.'
         });

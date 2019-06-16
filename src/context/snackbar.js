@@ -8,8 +8,7 @@ function reducer(state, action) {
       return {
         ...state,
         visible: true,
-        message: action.payload.message,
-        link: action.payload.link
+        message: action.payload
       };
     case 'HIDE_MESSAGE':
       return { ...state, visible: false };
@@ -28,8 +27,8 @@ export const SnackbarProvider = ({ children }) => {
     dispatch({ type: 'HIDE_MESSAGE' });
   };
 
-  const setSnackbar = ({ message, timeout = 3500, link }) => {
-    dispatch({ type: 'SET_MESSAGE', payload: { message, link } });
+  const setSnackbar = ({ message, timeout = 3500 }) => {
+    dispatch({ type: 'SET_MESSAGE', payload: message });
 
     setTimeout(() => {
       clearSnackbar();
