@@ -43,12 +43,15 @@ export const CheckboxUnchecked = props => (
 export const Logo = props => (
   <svg
     {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 512 512"
     fill="#1A1414"
     width="1em"
     height="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 512 512"
   >
-    <path d="M408 64H104c-22.091 0-40 17.908-40 40v304c0 22.092 17.909 40 40 40h304c22.092 0 40-17.908 40-40V104c0-22.092-17.908-40-40-40zM304 368H144v-48h160v48zm64-88H144v-48h224v48zm0-88H144v-48h224v48z" />
+    <circle cx="92" cy="256" r="28" />
+    <circle cx="92" cy="132" r="28" />
+    <circle cx="92" cy="380" r="28" />
+    <path d="M432 240H191.5c-8.8 0-16 7.2-16 16s7.2 16 16 16H432c8.8 0 16-7.2 16-16s-7.2-16-16-16zM432 364H191.5c-8.8 0-16 7.2-16 16s7.2 16 16 16H432c8.8 0 16-7.2 16-16s-7.2-16-16-16zM191.5 148H432c8.8 0 16-7.2 16-16s-7.2-16-16-16H191.5c-8.8 0-16 7.2-16 16s7.2 16 16 16z" />
   </svg>
 );

@@ -19,6 +19,8 @@ const StyledSnackbar = styled(animated.div)`
   left: 50%;
   padding: 0.5em 1em;
   border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 16px 32px 0px,
+    rgba(0, 0, 0, 0.08) 0px 8px 16px 0px;
 `;
 
 export const Snackbar = () => {
