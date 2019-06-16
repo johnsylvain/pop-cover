@@ -5,7 +5,12 @@ const Context = createContext();
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_MESSAGE':
-      return { ...state, visible: true, message: action.payload };
+      return {
+        ...state,
+        visible: true,
+        message: action.payload.message,
+        link: action.payload.link
+      };
     case 'HIDE_MESSAGE':
       return { ...state, visible: false };
     default:
@@ -23,8 +28,8 @@ export const SnackbarProvider = ({ children }) => {
     dispatch({ type: 'HIDE_MESSAGE' });
   };
 
-  const setSnackbar = ({ message, timeout = 3500 }) => {
-    dispatch({ type: 'SET_MESSAGE', payload: message });
+  const setSnackbar = ({ message, timeout = 3500, link }) => {
+    dispatch({ type: 'SET_MESSAGE', payload: { message, link } });
 
     setTimeout(() => {
       clearSnackbar();

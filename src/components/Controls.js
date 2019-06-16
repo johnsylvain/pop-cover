@@ -6,6 +6,7 @@ import { useAuth } from '../context/auth';
 import { useSnackbar } from '../context/snackbar';
 
 import { downloadImage } from '../util/image';
+import { checkToken, logout } from '../util/auth';
 
 import { playlistService } from '../services/playlist';
 
@@ -48,34 +49,39 @@ const StyledControls = styled.div`
   }
 `;
 
-const Link = styled.a`
-  color: white;
-  font-weight: 700;
-`;
-
 export const Controls = () => {
   const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
-  const [{ token, isAuthed }] = useAuth();
+  const [{ token, isAuthed }, dispatchAuth] = useAuth();
   const { setSnackbar } = useSnackbar();
 
   const createPlaylist = () => {
+    if (!checkToken()) {
+      setSnackbar({
+        message: 'Your session has expired. Please log in again.'
+      });
+      logout();
+      dispatchAuth({ type: 'LOGOUT' });
+      return;
+    }
+
     const image = renderer.export(0.9).split(',')[1];
+
     playlistService
       .create({ token, name, image })
       .then(response => {
         setSnackbar({
-          message: (
-            <span>
-              Playlist created.{' '}
-              <Link href={response.external_urls.spotify} target="_blank">
-                View here.
-              </Link>
-            </span>
-          )
+          timeout: 6000,
+          message: 'Playlist created.',
+          link: {
+            url: response.external_urls.spotify,
+            text: 'See it here.'
+          }
         });
       })
-      .catch(error => {
-        setSnackbar({ message: 'Oops. Please try again in a moment.' });
+      .catch(() => {
+        setSnackbar({
+          message: 'Oops. Please try again in a moment.'
+        });
       });
   };
 

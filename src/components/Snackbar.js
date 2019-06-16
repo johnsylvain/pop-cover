@@ -4,6 +4,11 @@ import { useTransition, animated } from 'react-spring';
 
 import { useSnackbar } from '../context/snackbar';
 
+const Link = styled.a`
+  color: white;
+  font-weight: 600;
+`;
+
 const StyledSnackbar = styled(animated.div)`
   background: rgba(26, 20, 20, 0.9);
   color: white;
@@ -29,6 +34,14 @@ export const Snackbar = () => {
       item && (
         <StyledSnackbar key={key} style={props}>
           {snackbar.message}
+          {snackbar.link && (
+            <>
+              {' '}
+              <Link href={snackbar.link.url} target="_blank">
+                {snackbar.link.text}
+              </Link>
+            </>
+          )}
         </StyledSnackbar>
       )
   );
