@@ -63,7 +63,7 @@ exports.handler = (event, context, callback) => {
       });
     } catch (e) {
       return callback(null, {
-        statusCode: 200,
+        statusCode: 500,
         headers: {
           'Content-Type': 'application/json'
         },
