@@ -33,9 +33,7 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <h1>
-        <Logo /> Listify
-      </h1>
+      <h1>Pop Cover</h1>
       {isAuthed ? (
         <Button
           onClick={() => {

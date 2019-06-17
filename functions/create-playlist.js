@@ -37,7 +37,7 @@ exports.handler = (event, context, callback) => {
         `https://api.spotify.com/v1/users/${me.data.id}/playlists`,
         {
           name: `This is ${body.name}`,
-          description: `This is ${body.name}. The essential tracks, all in one playlist. (Created with www.listify.pro)`,
+          description: `This is ${body.name}. The essential tracks, all in one playlist. (Created with www.popcover.pro)`,
           public: true
         },
         { headers }

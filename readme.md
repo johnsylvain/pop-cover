@@ -1,7 +1,18 @@
-# [Listify](https://listify.pro)
+# Pop Cover - [popcover.pro](https://popcover.pro)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2f247246-9a61-4b0f-b784-a36de5b97b51/deploy-status)](https://app.netlify.com/sites/eager-allen-4f1f88/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/89db21f7-d81b-44e5-80e1-f3975944efaa/deploy-status)](https://app.netlify.com/sites/elegant-easley-127a0a/deploys)
 
-> Create your own "This is" Spotify playlists
+> Create your own "This is" Spotify playlist
 
-![demo](demo.gif)
+## Development
+
+```bash
+# start frontend dev server
+yarn start
+
+# start function server
+yarn start:functions
+
+# build app
+yarn build
+```
