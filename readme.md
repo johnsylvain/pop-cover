@@ -4,6 +4,8 @@
 
 > Create your own "This is" Spotify playlist
 
+![demo](demo.gif)
+
 ## Development
 
 ```bash
