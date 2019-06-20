@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useCoverArt } from '../context/cover-art';
@@ -15,6 +15,7 @@ import { Button } from './Button';
 import { FileDrop } from './FileDrop';
 import { GradientPicker } from './GradientPicker';
 import { Checkbox } from './Checkbox';
+import { Spinner } from './Spinner';
 
 const StyledControls = styled.div`
   border-radius: 5px;
@@ -56,6 +57,7 @@ const Link = styled.a`
 `;
 
 export const Controls = () => {
+  const [loading, setLoading] = useState(false);
   const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
   const [{ token, isAuthed }, dispatchAuth] = useAuth();
   const { setSnackbar } = useSnackbar();
@@ -70,11 +72,19 @@ export const Controls = () => {
       return;
     }
 
+    if (!name || !image) {
+      setSnackbar({ message: 'Playlist name and image are required.' });
+      return;
+    }
+
     const image = renderer.export(0.9).split(',')[1];
+
+    setLoading(true);
 
     playlistService
       .create({ token, name, image })
       .then(response => {
+        setLoading(false);
         setSnackbar({
           timeout: 6000,
           message: (
@@ -88,6 +98,7 @@ export const Controls = () => {
         });
       })
       .catch(error => {
+        setLoading(false);
         setSnackbar({
           message: 'Oops. Please try again in a moment.'
         });
@@ -157,7 +168,12 @@ export const Controls = () => {
         >
           Download JPEG
         </Button>
-        <Button primary onClick={createPlaylist} disabled={!isAuthed}>
+        <Button
+          primary
+          onClick={createPlaylist}
+          disabled={!isAuthed}
+          loading={loading}
+        >
           Create Playlist
         </Button>
       </div>
