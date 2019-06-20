@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { login, logout } from '../util/auth';
@@ -7,7 +7,6 @@ import { useAuth } from '../context/auth';
 import { useSnackbar } from '../context/snackbar';
 
 import { Button } from './Button';
-import { Logo } from './Icon';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -28,6 +27,7 @@ const StyledHeader = styled.header`
 `;
 
 export const Header = () => {
+  const [loading, setLoading] = useState(false);
   const [{ isAuthed }, dispatch] = useAuth();
   const { setSnackbar } = useSnackbar();
 
@@ -46,13 +46,22 @@ export const Header = () => {
         </Button>
       ) : (
         <Button
+          loading={loading}
           onClick={() => {
-            login().then(token => {
-              if (token) {
-                dispatch({ type: 'LOGIN', payload: token });
-                setSnackbar({ message: 'Welcome! 👋' });
-              }
-            });
+            setLoading(true);
+            login()
+              .then(token => {
+                setLoading(false);
+                if (token) {
+                  dispatch({ type: 'LOGIN', payload: token });
+                  setSnackbar({ message: 'Welcome! 👋' });
+                } else {
+                  setSnackbar({ message: 'nope' });
+                }
+              })
+              .catch(() => {
+                setLoading(false);
+              });
           }}
         >
           Log into Spotify

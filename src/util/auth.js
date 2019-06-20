@@ -55,6 +55,10 @@ export const login = () => {
           window.onmessage = null;
         }
       }
+
+      if (popup.closed) {
+        reject();
+      }
     }, 1000);
 
     window.onmessage = event => {
