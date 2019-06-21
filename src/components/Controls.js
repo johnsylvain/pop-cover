@@ -58,7 +58,10 @@ const Link = styled.a`
 
 export const Controls = () => {
   const [loading, setLoading] = useState(false);
-  const [{ name, renderer, isOverlay, image }, dispatch] = useCoverArt();
+  const [
+    { name, renderer, isOverlay, image: userImage },
+    dispatch
+  ] = useCoverArt();
   const [{ token, isAuthed }, dispatchAuth] = useAuth();
   const { setSnackbar } = useSnackbar();
 
@@ -72,7 +75,7 @@ export const Controls = () => {
       return;
     }
 
-    if (!name || !image) {
+    if (!name || !userImage) {
       setSnackbar({ message: 'Playlist name and image are required.' });
       return;
     }
@@ -144,7 +147,7 @@ export const Controls = () => {
 
       <Checkbox
         id="overlay"
-        disabled={!image || image.type !== 'image/png'}
+        disabled={!userImage || userImage.type !== 'image/png'}
         value={isOverlay}
         onChange={() => {
           dispatch({ type: 'SET_OVERLAY', payload: !isOverlay });
