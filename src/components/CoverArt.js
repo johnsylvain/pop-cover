@@ -31,27 +31,9 @@ export const CoverArt = () => {
 
   useEffect(() => {
     if (renderer) {
-      renderer.update({ name });
+      renderer.update({ name, backdrop, image, isOverlay });
     }
-  }, [name, renderer]);
-
-  useEffect(() => {
-    if (renderer) {
-      renderer.update({ backdrop });
-    }
-  }, [backdrop, renderer]);
-
-  useEffect(() => {
-    if (renderer) {
-      renderer.update({ image });
-    }
-  }, [image, renderer]);
-
-  useEffect(() => {
-    if (renderer) {
-      renderer.update({ isOverlay });
-    }
-  }, [isOverlay, renderer]);
+  }, [name, backdrop, image, isOverlay, renderer]);
 
   return (
     <Canvas ref={canvasRef} width={dimensions} height={dimensions}></Canvas>
