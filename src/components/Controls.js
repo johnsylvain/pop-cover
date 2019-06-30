@@ -15,7 +15,6 @@ import { Button } from './Button';
 import { FileDrop } from './FileDrop';
 import { GradientPicker } from './GradientPicker';
 import { Checkbox } from './Checkbox';
-import { Spinner } from './Spinner';
 
 const StyledControls = styled.div`
   border-radius: 5px;
